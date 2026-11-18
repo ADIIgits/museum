@@ -124,9 +124,17 @@ SIMPLE_JWT = {
 }
 
 # ---------------------------------------------------------------------------
-# CORS — allow React dev server
+# CORS & CSRF
 # ---------------------------------------------------------------------------
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://museum-sandy-phi.vercel.app',
+    'https://museum-xh7f.onrender.com',
+    'http://localhost:5173',
+    'http://localhost:3000',
+]
 
 # ---------------------------------------------------------------------------
 # Static & Media
