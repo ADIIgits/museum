@@ -5,14 +5,22 @@ Django settings for Museum Ticket Booking Platform.
 import os
 from pathlib import Path
 from datetime import timedelta
+import dj_database_url
+from dotenv import load_dotenv
+
+# Load .env file if present
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-dev-key-change-in-production-museum-app-2024'
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY',
+    'django-insecure-dev-key-change-in-production-museum-app-2024'
+)
 
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True').lower() in ('true', '1', 'yes')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 
 # ---------------------------------------------------------------------------
 # Application definition
@@ -37,6 +45,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -66,10 +75,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 # ---------------------------------------------------------------------------
-# Database — SQLite for development
+# Database
 # ---------------------------------------------------------------------------
-import dj_database_url
-
 DATABASE_URL = os.environ.get(
     'DATABASE_URL',
     'postgres://68e8dc7479643b7a3c4b5e884105e3e15926bbe6daf44926bb26d6d565049127:sk_wFZbnmghoT0gl6mPZyXkr@db.prisma.io:5432/postgres?sslmode=require'
@@ -125,6 +132,9 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Static & Media
 # ---------------------------------------------------------------------------
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
