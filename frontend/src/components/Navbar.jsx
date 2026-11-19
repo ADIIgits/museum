@@ -1,8 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -27,6 +29,16 @@ export default function Navbar() {
         </Link>
 
         <div className="navbar-actions">
+          {/* Theme Toggle Button */}
+          <button
+            onClick={toggleTheme}
+            className="theme-toggle-btn"
+            title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} mode`}
+            aria-label="Toggle Theme"
+          >
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
+
           {user ? (
             <>
               {user.role === 'admin' ? (
@@ -34,7 +46,7 @@ export default function Navbar() {
                   <span>🛡️</span> Operator Dashboard
                 </Link>
               ) : (
-                <Link to="/tickets" className="btn btn-ghost">
+                <Link to="/tickets" className="btn btn-ghost btn-sm">
                   My Tickets
                 </Link>
               )}
@@ -48,7 +60,7 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              <Link to="/login" className="btn btn-ghost">
+              <Link to="/login" className="btn btn-ghost btn-sm">
                 Sign in
               </Link>
               <Link to="/register" className="btn btn-primary btn-sm">
@@ -61,3 +73,4 @@ export default function Navbar() {
     </nav>
   );
 }
+

@@ -147,19 +147,19 @@ export default function AdminDashboardPage() {
             {/* Tab navigation pills */}
             <div style={{ display: 'flex', gap: '8px' }}>
               <button
-                className={`btn ${activeTab === 'bookings' ? 'btn-primary' : 'btn-ghost'} btn-sm`}
+                className={`nav-pill ${activeTab === 'bookings' ? 'active' : ''}`}
                 onClick={() => setActiveTab('bookings')}
               >
                 🎫 Bookings ({bookings.length})
               </button>
               <button
-                className={`btn ${activeTab === 'my-museums' ? 'btn-primary' : 'btn-ghost'} btn-sm`}
+                className={`nav-pill ${activeTab === 'my-museums' ? 'active' : ''}`}
                 onClick={() => setActiveTab('my-museums')}
               >
                 🏛️ My Museums ({myMuseums.length})
               </button>
               <button
-                className={`btn ${activeTab === 'add-museum' ? 'btn-primary' : 'btn-ghost'} btn-sm`}
+                className={`nav-pill ${activeTab === 'add-museum' ? 'active' : ''}`}
                 onClick={() => setActiveTab('add-museum')}
               >
                 ➕ Add Museum
@@ -168,48 +168,48 @@ export default function AdminDashboardPage() {
           </div>
         </div>
 
-        {/* METRICS ROW */}
+        {/* METRICS ROW (Applying Apple rounded palette cards) */}
         <div
           className="fade-in-up stagger-1"
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
             gap: 'var(--space-4)',
             marginBottom: 'var(--space-6)',
           }}
         >
-          <div className="card" style={{ padding: 'var(--space-4)' }}>
-            <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-muted)' }}>
+          <div className="card stat-card-teal" style={{ padding: 'var(--space-5)' }}>
+            <div style={{ fontSize: 'var(--font-size-xs)', fontWeight: 600, opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
               My Museums Listed
             </div>
-            <div style={{ fontSize: 'var(--font-size-2xl)', fontWeight: 700, marginTop: '4px' }}>
+            <div style={{ fontSize: 'var(--font-size-3xl)', fontWeight: 800, marginTop: '6px' }}>
               {myMuseums.length}
             </div>
           </div>
 
-          <div className="card" style={{ padding: 'var(--space-4)' }}>
-            <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-muted)' }}>
+          <div className="card stat-card-sage" style={{ padding: 'var(--space-5)' }}>
+            <div style={{ fontSize: 'var(--font-size-xs)', fontWeight: 600, opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
               Total Bookings Received
             </div>
-            <div style={{ fontSize: 'var(--font-size-2xl)', fontWeight: 700, marginTop: '4px' }}>
+            <div style={{ fontSize: 'var(--font-size-3xl)', fontWeight: 800, marginTop: '6px' }}>
               {bookings.length}
             </div>
           </div>
 
-          <div className="card" style={{ padding: 'var(--space-4)' }}>
-            <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-muted)' }}>
+          <div className="card stat-card-lime" style={{ padding: 'var(--space-5)' }}>
+            <div style={{ fontSize: 'var(--font-size-xs)', fontWeight: 600, opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
               Total Visitors
             </div>
-            <div style={{ fontSize: 'var(--font-size-2xl)', fontWeight: 700, marginTop: '4px', color: 'var(--color-primary)' }}>
+            <div style={{ fontSize: 'var(--font-size-3xl)', fontWeight: 800, marginTop: '6px' }}>
               {totalVisitorsCount}
             </div>
           </div>
 
-          <div className="card" style={{ padding: 'var(--space-4)' }}>
-            <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-muted)' }}>
+          <div className="card stat-card-amber" style={{ padding: 'var(--space-5)' }}>
+            <div style={{ fontSize: 'var(--font-size-xs)', fontWeight: 600, opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
               Total Revenue
             </div>
-            <div style={{ fontSize: 'var(--font-size-2xl)', fontWeight: 700, marginTop: '4px', color: 'var(--color-success)' }}>
+            <div style={{ fontSize: 'var(--font-size-3xl)', fontWeight: 800, marginTop: '6px' }}>
               ₹{totalRevenue.toFixed(2)}
             </div>
           </div>
