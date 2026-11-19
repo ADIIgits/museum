@@ -54,7 +54,7 @@ export default function Navbar() {
                 <div className="navbar-user-avatar">{getInitials(user.name)}</div>
                 <span>{user.name}</span>
               </div>
-              <button onClick={handleLogout} className="btn btn-ghost btn-sm">
+              <button onClick={handleLogout} className="btn btn-secondary btn-sm" style={{ borderColor: 'rgba(239, 68, 68, 0.25)', color: 'var(--color-danger)' }}>
                 Logout
               </button>
             </>

@@ -145,21 +145,21 @@ export default function AdminDashboardPage() {
             </div>
 
             {/* Tab navigation pills */}
-            <div style={{ display: 'flex', gap: '8px' }}>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               <button
-                className={`nav-pill ${activeTab === 'bookings' ? 'active' : ''}`}
+                className={`nav-pill nav-pill-teal ${activeTab === 'bookings' ? 'active' : ''}`}
                 onClick={() => setActiveTab('bookings')}
               >
                 🎫 Bookings ({bookings.length})
               </button>
               <button
-                className={`nav-pill ${activeTab === 'my-museums' ? 'active' : ''}`}
+                className={`nav-pill nav-pill-sage ${activeTab === 'my-museums' ? 'active' : ''}`}
                 onClick={() => setActiveTab('my-museums')}
               >
                 🏛️ My Museums ({myMuseums.length})
               </button>
               <button
-                className={`nav-pill ${activeTab === 'add-museum' ? 'active' : ''}`}
+                className={`nav-pill nav-pill-lime ${activeTab === 'add-museum' ? 'active' : ''}`}
                 onClick={() => setActiveTab('add-museum')}
               >
                 ➕ Add Museum
@@ -307,19 +307,14 @@ export default function AdminDashboardPage() {
                   <div
                     key={booking.id}
                     className={`ticket-card fade-in-up stagger-${Math.min(i + 1, 3)}`}
-                    style={{
-                      alignItems: 'flex-start',
-                      padding: 'var(--space-5)',
-                    }}
                   >
                     <img
                       className="ticket-card-thumb"
                       src={booking.museum?.image || 'https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=800&q=80'}
                       alt={booking.museum?.name}
-                      style={{ width: '90px', height: '90px', objectFit: 'cover', borderRadius: '10px' }}
                     />
 
-                    <div className="ticket-card-info" style={{ flex: 1 }}>
+                    <div className="ticket-card-info">
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                         <h3 style={{ margin: 0 }}>{booking.museum?.name}</h3>
                         {statusBadge(booking.status)}
@@ -342,7 +337,7 @@ export default function AdminDashboardPage() {
                           marginTop: '8px',
                           background: 'rgba(255, 255, 255, 0.03)',
                           padding: '8px 12px',
-                          borderRadius: '8px',
+                          borderRadius: 'var(--radius-md)',
                           border: '1px solid var(--color-border)',
                           fontSize: 'var(--font-size-sm)',
                         }}
@@ -361,34 +356,28 @@ export default function AdminDashboardPage() {
                       </div>
                     </div>
 
-                    <div
-                      className="ticket-card-right"
-                      style={{
-                        alignItems: 'flex-end',
-                        minWidth: '160px',
-                        textAlign: 'right',
-                      }}
-                    >
+                    <div className="ticket-card-right">
                       <span
                         style={{
-                          fontSize: 'var(--font-size-xl)',
-                          fontWeight: 700,
-                          color: 'var(--color-primary-hover)',
+                          fontSize: 'var(--font-size-2xl)',
+                          fontWeight: 800,
+                          color: 'var(--pal-teal-light)',
+                          lineHeight: 1.1,
                         }}
                       >
                         ₹{booking.total_price}
                       </span>
 
-                      <span className="ticket-id" title="Ticket ID" style={{ marginTop: '4px' }}>
+                      <span className="ticket-id" title="Ticket ID">
                         #{booking.ticket_id?.slice(0, 8).toUpperCase()}
                       </span>
 
                       {booking.payment_id && (
                         <span
                           style={{
-                            fontSize: '11px',
+                            fontSize: 'var(--font-size-xs)',
                             color: 'var(--color-text-muted)',
-                            marginTop: '4px',
+                            whiteSpace: 'nowrap',
                           }}
                         >
                           Ref: {booking.payment_id}
@@ -397,9 +386,9 @@ export default function AdminDashboardPage() {
 
                       <span
                         style={{
-                          fontSize: '11px',
+                          fontSize: 'var(--font-size-xs)',
                           color: 'var(--color-text-muted)',
-                          marginTop: '6px',
+                          whiteSpace: 'nowrap',
                         }}
                       >
                         Booked {new Date(booking.created_at).toLocaleDateString('en-IN')}

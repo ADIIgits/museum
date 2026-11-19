@@ -389,6 +389,9 @@ a {
 
 /* Pill Navigation Buttons */
 .nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
   padding: 8px 18px;
   border-radius: var(--radius-full);
   font-size: var(--font-size-sm);
@@ -405,14 +408,40 @@ a {
 }
 
 .nav-pill:not(.active) {
-  background: var(--color-bg-input);
-  color: var(--color-text-secondary);
+  background: var(--color-bg-card);
+  color: var(--color-text);
   border-color: var(--color-border);
 }
 
 .nav-pill:not(.active):hover {
-  color: var(--color-text);
   background: var(--color-bg-card-hover);
+  border-color: var(--color-border-hover);
+  transform: translateY(-1px);
+}
+
+/* Palette-tinted pill button variants */
+.nav-pill-teal:not(.active) {
+  background: var(--metric-teal-bg);
+  color: var(--metric-teal-text);
+  border-color: rgba(2, 132, 165, 0.25);
+}
+
+.nav-pill-sage:not(.active) {
+  background: var(--metric-sage-bg);
+  color: var(--metric-sage-text);
+  border-color: rgba(106, 141, 123, 0.25);
+}
+
+.nav-pill-lime:not(.active) {
+  background: var(--metric-lime-bg);
+  color: var(--metric-lime-text);
+  border-color: rgba(182, 205, 50, 0.25);
+}
+
+.nav-pill-amber:not(.active) {
+  background: var(--metric-amber-bg);
+  color: var(--metric-amber-text);
+  border-color: rgba(245, 158, 11, 0.25);
 }
 
 /* ============================================================
@@ -711,7 +740,7 @@ a {
 
 .ticket-card {
   display: flex;
-  align-items: center;
+  align-items: center; /* Center-aligned with content and image */
   gap: var(--space-5);
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
@@ -727,10 +756,29 @@ a {
 }
 
 .ticket-card-thumb {
-  width: 100px;
-  height: 100px;
-  border-radius: var(--radius-md);
+  width: 96px;
+  height: 96px;
+  border-radius: var(--radius-lg);
   object-fit: cover;
+  flex-shrink: 0;
+  align-self: center; /* Vertically centered */
+}
+
+.ticket-card-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ticket-card-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 6px;
+  min-width: 160px;
+  text-align: right;
   flex-shrink: 0;
 }
 
