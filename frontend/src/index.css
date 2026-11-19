@@ -66,13 +66,13 @@
    DARK THEME (Default: Consistent Apple Dark Grey)
    ============================================================ */
 :root, [data-theme="dark"] {
-  --color-bg: #141416;               /* Clean consistent Dark Grey background */
-  --color-bg-elevated: #1e1e22;      /* Elevated layer / navbar */
-  --color-bg-card: #202026;          /* Card container */
-  --color-bg-card-hover: #272730;    /* Interactive card hover */
-  --color-bg-input: #18181d;         /* Form inputs */
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-hover: rgba(255, 255, 255, 0.16);
+  --color-bg: #0C0C0E;               /* Sleeker, deeper Dark Grey */
+  --color-bg-elevated: #141417;      /* Subtle elevation / navbar */
+  --color-bg-card: #17171B;          /* Distinct card background */
+  --color-bg-card-hover: #1D1D22;    /* Interactive card hover */
+  --color-bg-input: #111114;         /* Inset form fields & tags */
+  --color-border: rgba(255, 255, 255, 0.07);
+  --color-border-hover: rgba(255, 255, 255, 0.14);
   --color-border-focus: var(--pal-teal-light);
 
   --color-text: #FFFFFF;
@@ -740,14 +740,15 @@ a {
 
 .ticket-card {
   display: flex;
-  align-items: center; /* Center-aligned with content and image */
+  align-items: stretch; /* Stretch so image can fill card height */
   gap: var(--space-5);
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
-  padding: var(--space-5);
+  padding: 10px; /* Small margin around the card content */
   box-shadow: var(--shadow-sm);
   transition: all var(--transition-base);
+  min-height: 124px;
 }
 
 .ticket-card:hover {
@@ -756,12 +757,13 @@ a {
 }
 
 .ticket-card-thumb {
-  width: 96px;
-  height: 96px;
+  width: 120px;
+  height: auto;
+  min-height: 104px;
   border-radius: var(--radius-lg);
   object-fit: cover;
   flex-shrink: 0;
-  align-self: center; /* Vertically centered */
+  align-self: stretch; /* Covers nearly full height of the card with small margin */
 }
 
 .ticket-card-info {
@@ -769,6 +771,7 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: var(--space-2) 0;
 }
 
 .ticket-card-right {
@@ -780,6 +783,7 @@ a {
   min-width: 160px;
   text-align: right;
   flex-shrink: 0;
+  padding: var(--space-2) var(--space-3) var(--space-2) 0;
 }
 
 .ticket-id {
