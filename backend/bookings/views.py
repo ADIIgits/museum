@@ -6,6 +6,7 @@ from rest_framework.response import Response
 
 from .models import Booking
 from .serializers import BookingCreateSerializer, BookingSerializer
+from .payment_services import get_payment_gateway
 
 
 class IsAdminUserRole(permissions.BasePermission):
@@ -48,8 +49,8 @@ class BookingDetailView(generics.RetrieveAPIView):
 def simulate_payment(request, pk):
     """
     POST /api/bookings/<id>/pay/
-    Simulates a successful payment. Sets booking to confirmed.
-    This will be replaced with real payment gateway later.
+    Processes payment via modular sandbox gateway (Payate / Visatk).
+    Confirms booking upon success.
     """
     try:
         booking = Booking.objects.get(pk=pk, user=request.user)
@@ -59,9 +60,27 @@ def simulate_payment(request, pk):
     if booking.status == 'confirmed':
         return Response({'detail': 'Already paid.'}, status=status.HTTP_400_BAD_REQUEST)
 
-    # Simulate payment success
+    # Process via modular payment gateway
+    gateway = get_payment_gateway()
+    payment_result = gateway.process_payment(
+        amount=float(booking.total_price),
+        currency='INR',
+        payment_details=request.data or {}
+    )
+
+    if not payment_result.get('success'):
+        return Response(
+            {
+                'detail': payment_result.get('message', 'Payment was declined by gateway.'),
+                'gateway': payment_result.get('gateway'),
+                'transaction_id': payment_result.get('transaction_id')
+            },
+            status=status.HTTP_402_PAYMENT_REQUIRED
+        )
+
+    # Success: confirm booking and record transaction reference
     booking.status = 'confirmed'
-    booking.payment_id = f'SIM-{uuid.uuid4().hex[:12].upper()}'
+    booking.payment_id = payment_result.get('transaction_id')
     booking.save()
 
     serializer = BookingSerializer(booking)

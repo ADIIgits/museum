@@ -69,7 +69,7 @@ export const bookingsAPI = {
   list: () => api.get('/bookings/my/'),
   adminList: (params) => api.get('/bookings/admin/all/', { params }),
   detail: (id) => api.get(`/bookings/${id}/`),
-  pay: (id) => api.post(`/bookings/${id}/pay/`),
+  pay: (id, paymentData = {}) => api.post(`/bookings/${id}/pay/`, paymentData),
 };
 
 export default api;
